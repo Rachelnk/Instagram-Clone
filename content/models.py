@@ -18,9 +18,16 @@ class Profile(models.Model):
     def get_followers(self):
       return self.followers.all()
 
+    def __str__(self):
+      return str(self.user)
+
     # people user follows
     def get_following(self):
       return self.following.all()
+
+    class Meta: 
+      verbose_name_plural = 'Profiles'
+
 
 
 
@@ -31,7 +38,17 @@ class Post(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
   author= models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
   created = models.DateTimeField(auto_now_add=True, null=True)
-  # likes = 
+
+  def get_posts(self):
+    return Post.objects.filter(user=self).all()
+
+  def save_image(self):
+    self.save()
+    
+
+
+
+ 
 
 class Comment(models.Model):
   comment = models.TextField(max_length=1000)
