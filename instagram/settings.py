@@ -128,3 +128,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Cloudinary configurations
+cloudinary.config( 
+  cloud_name = "kiaries-gallery", 
+  api_key = "343145548373335", 
+  api_secret = "oNEicoCy_M9UqMwBjoRC1fyPAuE",
+  secure = True
+)
