@@ -10,6 +10,19 @@ class Profile(models.Model):
     bio = models.TextField()
     username = models.CharField(max_length=60)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created, ', null=True)
+    
+    def get_posts(self):
+      return Post.objects.filter(user=self).all()
+
+    # user followers
+    def get_followers(self):
+      return self.followers.all()
+
+    # people user follows
+    def get_following(self):
+      return self.following.all()
+
+
 
 class Post(models.Model):
   image = CloudinaryField('image')
