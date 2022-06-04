@@ -10,11 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -136,3 +135,7 @@ cloudinary.config(
   api_secret = "oNEicoCy_M9UqMwBjoRC1fyPAuE",
   secure = True
 )
+# Login & Logout URLs
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/admin/'
+LOGOUT_REDIRECT_URL = '/login/'
