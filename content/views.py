@@ -67,8 +67,21 @@ def register(request):
         user.save()        
   return render(request, 'register.html')
 
-def profile(request):
-  return render(request,'profile.html')
+def Userprofile(request, username):
+  current_user = request.user
+  profile = User.objects.get(username=username)
+  profile_details = Profile.objects.get(user = profile.id)
+  images = Post.objects.filter(author = profile.id).all()
+  images_count = Post.objects.filter(author = profile.id)
+  followers = Profile.get_followers(self=profile)
+  following = Profile.get_following(self=profile)
+  is_followed = False
+  if followers.filter(user_id=current_user.id).exists() or following.filter(user_id=current_user.id).exists():
+      is_followed=True
+  else:
+      is_followed=False
+  return render(request, 'User profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user, 'is_followed':is_followed})
+  
 
 @login_required(login_url='Login')
 def Logout(request):
