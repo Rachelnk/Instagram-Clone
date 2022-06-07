@@ -102,20 +102,29 @@ def EditProfile(request, username):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, '✅ Your Profile Has Been Updated Successfully!')
+            messages.success(request, 'Your Profile Has Been Updated Successfully!')
             return redirect('MyProfile', username=username)
         else:
-            messages.error(request, "⚠️ Your Profile Wasn't Updated!")
+            messages.error(request, "Your profile Wasn't Updated!")
             return redirect('EditProfile', username=username)
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'Edit Profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'Edit profile.html', {'user_form': user_form, 'profile_form': profile_form})
   
 
-@login_required(login_url='Login')
+@login_required(login_url='login')
 def Logout(request):
     logout(request)
     messages.success(request, 'Successfully Logged Out!')
     return redirect(reverse('Login'))
+
+def SingleImage(request, id):
+    post = Post.objects.get(id = id)
+    print(post)
+    likes = Like.objects.filter(post = post.id).count()
+    print(likes)
+    comments = Comment.objects.filter(post = post.id).count()
+    print(comments)
+    return render(request, 'Post details.html', {'post': post, 'comments':comments, 'likes':likes})
