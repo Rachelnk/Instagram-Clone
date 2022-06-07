@@ -168,3 +168,32 @@ def Search(request):
             return render(request, 'Search search_results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count, 'current_user':current_user, 'is_followed':is_followed})
     else:
         return render(request, 'Search search_results.html')
+@login_required(login_url='Login')
+def AddComment(request, id):
+    post = Post.objects.get(id=id)
+    if request.method == "POST":
+        usercomment = request.POST['comment']
+        comment_obj = Comment.objects.create(opinion = usercomment, author = request.user, post = post)
+        comment_obj.save()
+        messages.success(request, '✅ Your Comment Was Created Successfully!')
+        return redirect('index')
+    else:
+        messages.error(request, "⚠️ Your Comment Wasn't Created!")
+        return redirect('index')
+
+@login_required(login_url='login')
+def PostLike(request,id):
+    postTobeliked = Post.objects.get(id = id)
+    currentUser = User.objects.get(id = request.user.id)
+    if not postTobeliked:
+        return "Post Not Found!"
+    else:
+        like = Like.objects.filter(author = currentUser, post = postTobeliked)
+        if like:
+            messages.error(request, 'You Can Only Like A Post Once!')
+            return redirect('index')
+        else:
+            likeToadd = Like(author = currentUser, post = postTobeliked)
+            likeToadd.save()
+            messages.success(request, 'You Successfully Liked The Post!')
+            return redirect('index')
