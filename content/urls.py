@@ -7,7 +7,17 @@ urlpatterns = [
   path('', views.login, name= 'home'),
   path('login/', views.index, name = 'login' ),
   path('register/', views.register, name = 'register'),
-  path('profile/', views.profile, name = 'profile')
+  path('profile/', views.profile, name = 'profile'),
+  path('user/<str:username>', views.UserProfile, name="UserProfile"),
+    path('profile/<str:username>/edit', views.EditProfile, name="EditProfile"),
+    path('profile/<str:username>/settings', views.Settings, name="Settings"),
+    path('post/<int:id>', views.SingleImage, name="SingleImage"),
+    path('profile/<str:username>/image/add', views.AddNewPost, name="AddNewPost"),
+    path('post/<int:id>/like', views.PostLike, name="PostLike"),
+    path('logout', views.Logout, name="Logout"),
+    path('follow/user/<str:username>', views.FollowUser, name="FollowUser"),
+    path('post/<int:id>/comment', views.AddComment, name="AddComment"),
+    path('search-results', views.Search, name="Search")
 
 ]
 

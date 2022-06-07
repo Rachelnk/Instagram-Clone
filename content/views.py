@@ -7,6 +7,7 @@ from instagram import settings
 from .forms import UpdateUserForm, UpdateProfileForm, AddPostForm
 from django.contrib.auth.decorators import login_required
 from .models import Follow, Like, Post, Profile, Comment
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 
@@ -197,3 +198,42 @@ def PostLike(request,id):
             likeToadd.save()
             messages.success(request, 'You Successfully Liked The Post!')
             return redirect('index')
+
+@login_required(login_url='Login')
+def FollowUser(request, username):
+    userTobefollowed = User.objects.get(username = username)
+    currentUser = request.user
+    is_followed = False
+    if userTobefollowed.id == currentUser.id:
+        messages.error(request, "⚠️ You can't follow yourself!")
+        return redirect('UserProfile', username=username)
+    if not userTobefollowed:
+        messages.error(request, "⚠️ User Does Not Exist!")
+        return redirect('UserProfile', username=username)
+    else:
+        follow = Follow.objects.filter(user = currentUser, following = userTobefollowed)
+        if follow:
+            messages.error(request, 'You Can Only Follow A User Once!')
+            return redirect('UserProfile', username=username)
+        else:
+            folowerToadd = Follow(user = currentUser, following = userTobefollowed)
+            folowerToadd.save()
+            messages.success(request, "You Are Now Following This User!")
+            return redirect('UserProfile', username=username)
+
+@login_required(login_url='Login')
+def Settings(request, username):
+    username = User.objects.get(username=username)
+    if request.method == "POST":
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your Password Has Been Updated Successfully!')
+            return redirect("MyProfile", username=username)
+        else:
+            messages.error(request, "Your Password Wasn't Updated!")
+            return redirect("Settings", username=username)
+    else:
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        return render(request, "Settings.html", {'form': form})
