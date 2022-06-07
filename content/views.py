@@ -157,7 +157,7 @@ def AddNewPost(request, username):
             messages.success(request, 'Your Post Was Created Successfully!')
             return redirect('MyProfile', username=username)
         else:
-            messages.error(request, "⚠️ Your Post Wasn't Created!")
+            messages.error(request, "Your Post Wasn't Created!")
             return redirect('AddNewPost', username=username)
     else:
         form = AddPostForm()
@@ -169,7 +169,7 @@ def Search(request):
         search = request.POST['imageSearch']
         users = User.objects.filter(username__icontains = search).all()
         if not users:
-            return render(request, 'Search Results.html', {'search':search, 'users':users})
+            return render(request, 'search_results.html', {'search':search, 'users':users})
         else:
             images = Post.objects.filter(author = users[0]).all()
             images_count = Post.objects.filter(author = users[0])
