@@ -4,10 +4,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-  path('', views.login, name= 'home'),
-  path('login/', views.index, name = 'login' ),
+  path('login/', views.login, name= 'login'),
+  path('', views.index, name = 'home' ),
   path('register/', views.register, name = 'register'),
-  path('profile/', views.profile, name = 'profile'),
+  path('profile/', views.MyProfile, name = 'MyProfile'),
   path('user/<str:username>', views.UserProfile, name="UserProfile"),
     path('profile/<str:username>/edit', views.EditProfile, name="EditProfile"),
     path('profile/<str:username>/settings', views.Settings, name="Settings"),

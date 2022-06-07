@@ -91,7 +91,7 @@ def MyProfile(request, username):
     images_count = Post.objects.filter(author = profile.id)
     followers = Profile.get_followers(self=profile)
     following = Profile.get_following(self=profile)
-    return render(request, 'My profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following})
+    return render(request, 'my_profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following})
 
 @login_required(login_url='Login')
 def EditProfile(request, username):
@@ -112,7 +112,22 @@ def EditProfile(request, username):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'Edit profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+def UserProfile(request, username):
+    current_user = request.user
+    profile = User.objects.get(username=username)
+    profile_details = Profile.objects.get(user = profile.id)
+    images = Post.objects.filter(author = profile.id).all()
+    images_count = Post.objects.filter(author = profile.id)
+    followers = Profile.get_followers(self=profile)
+    following = Profile.get_following(self=profile)
+    is_followed = False
+    if followers.filter(user_id=current_user.id).exists() or following.filter(user_id=current_user.id).exists():
+        is_followed=True
+    else:
+        is_followed=False
+    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user, 'is_followed':is_followed})
   
 
 @login_required(login_url='login')
@@ -140,14 +155,14 @@ def AddNewPost(request, username):
             post.author = request.user
             post.profile = request.user.profile
             post.save()
-            messages.success(request, '✅ Your Post Was Created Successfully!')
+            messages.success(request, 'Your Post Was Created Successfully!')
             return redirect('MyProfile', username=username)
         else:
             messages.error(request, "⚠️ Your Post Wasn't Created!")
             return redirect('AddNewPost', username=username)
     else:
         form = AddPostForm()
-    return render(request, 'Add post.html', {'form':form})
+    return render(request, 'add_post.html', {'form':form})
 
 def Search(request):
     current_user = request.user
