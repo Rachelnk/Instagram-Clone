@@ -1,9 +1,9 @@
-{% extends "Base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
     <div class="container-fluid">
-        {% include 'Navbar.html' %}
+        {% include 'navbar.html' %}
     </div>
     <main class="main-container">
         <section class="content-container">
@@ -169,7 +169,7 @@
             <div class="side-menu__user-profile">
               {% if user.profile.profile_image %}
               <a
-                href="{% url 'UserProfile' user.username %}"
+                href="{% url 'user_profile' user.username %}"
                 
                 class="side-menu__user-avatar"
               >
@@ -177,20 +177,20 @@
               </a>
               {% else %}
               <a
-                href="{% url 'UserProfile' user.username %}"
+                href="{% url 'user_profile' user.username %}"
                 
                 class="side-menu__user-avatar"
               >
-                <img src={% static "assets/img/default-user.png" %} alt="User Picture" />
+                <img src={% static "img/default-user.png" %} alt="User Picture" />
               </a>
               {% endif %}
               <div class="side-menu__user-info">
-                <a href="{% url 'UserProfile' user.username %}" 
+                <a href="{% url 'user_profile' user.username %}" 
                   >{{ user.username }}</a
                 >
                 <span>{{ user.first_name }} {{ user.last_name }}</span>
               </div>
-              <a href="{% url 'Logout' %}" name="Logout">
+              <a href="{% url 'logout' %}" name="Logout">
                 <button class="side-menu__user-button">Switch</button>
               </a>
             </div>
@@ -264,7 +264,7 @@
               </div>
   
               <span class="side-menu__footer-copyright"
-                >&copy; 2022 InstaPics. A Django Instagram Clone</span
+                >&copy; 2022 The Gram. A Django Instagram Clone</span
               >
             </div>
           </section>

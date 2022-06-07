@@ -1,4 +1,4 @@
-{% extends "Base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -20,11 +20,11 @@
         <form action="" method="POST">
             {% csrf_token %}
             <h1 class="flex justify-content-center text-center">
-                <img src={% static "img/thegramlogo.png" %} alt="Instagram logo" title="Instagram logo" />
+                <img src={% static "img/thegramlogo.png" %} alt="The Gram logo" title="The Gram logo" />
             </h1>
-            <p class="text-muted text-center">Sign up to see photos and videos from your friends.</p>
+            <p class="text-muted text-center">Sign up to see photos and videos uploaded by your friends.</p>
             <div class="panel register flex justify-content-center">
-                <div class="hint-text text-center" style="font-size: small;">Already Have An Account? <a href="{% url 'Login' %}" name = 'Login'>Log In</a></div>
+                <div class="hint-text text-center" style="font-size: small;">Already Have An Account? <a href="{% url 'login' %}" name = 'login'>Log In</a></div>
             </div>
             <div class="row">
                 <div class="col">
@@ -46,7 +46,7 @@
         <footer class="page-footer">
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3 text-dark">
-                © Copyright 2022 The Gram
+                © 2022 The Gram
             </div>
             <!-- Copyright -->
         </footer>

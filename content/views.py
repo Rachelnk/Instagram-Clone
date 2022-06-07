@@ -11,7 +11,7 @@ from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 
-def login(request):
+def loginUser(request):
   if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -20,11 +20,11 @@ def login(request):
 
         if not User.objects.filter(username=username).exists():
             messages.error(request, 'Username Does Not Exist! Choose Another One')
-            return redirect('Login')
+            return redirect('login')
 
         if user is None:
-            messages.error(request, 'Username/Password Is Incorrect or Account Is Not Activated!! Please Try Again')
-            return redirect('Login')
+            messages.error(request, 'Username/Password Is Incorrect!! Please Try Again')
+            return redirect('login')
 
         if user is not None:
             login(request, user)
@@ -52,19 +52,18 @@ def register(request):
 
         if password1 != password2:
             messages.error(request, 'Passwords Do Not Match! Try Again')
-            return redirect('Register')
+            return redirect('register')
 
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username Already Exists! Choose Another One')
-            return redirect('Register')
+            return redirect('register')
 
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email Address Already Exists! Choose Another One')
-            return redirect('Register')
+            return redirect('register')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email)
         user.set_password(password1)
-        user.is_active = False
         user.save()        
   return render(request, 'register.html')
 @login_required(login_url='login')
@@ -81,9 +80,9 @@ def Userprofile(request, username):
       is_followed=True
   else:
       is_followed=False
-  return render(request, 'User profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user, 'is_followed':is_followed})
+  return render(request, 'user_profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user, 'is_followed':is_followed})
 
-@login_required(login_url='Login')
+@login_required(login_url='login')
 def MyProfile(request, username):
     profile = User.objects.get(username=username)
     profile_details = Profile.objects.get(user = profile.id)
@@ -127,7 +126,7 @@ def UserProfile(request, username):
         is_followed=True
     else:
         is_followed=False
-    return render(request, 'User Profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user, 'is_followed':is_followed})
+    return render(request, 'user_profile.html', {'profile':profile, 'profile_details':profile_details, 'images':images, 'images_count':images_count, 'followers':followers, 'following':following, 'current_user':current_user, 'is_followed':is_followed})
   
 
 @login_required(login_url='login')
