@@ -144,7 +144,7 @@ def SingleImage(request, id):
     print(comments)
     return render(request, 'Post details.html', {'post': post, 'comments':comments, 'likes':likes})
 
-@login_required(login_url='Login')
+@login_required(login_url='login')
 def AddNewPost(request, username):
     form = AddPostForm()
     if request.method == "POST":
@@ -183,7 +183,7 @@ def Search(request):
             return render(request, 'Search search_results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count, 'current_user':current_user, 'is_followed':is_followed})
     else:
         return render(request, 'Search search_results.html')
-@login_required(login_url='Login')
+@login_required(login_url='login')
 def AddComment(request, id):
     post = Post.objects.get(id=id)
     if request.method == "POST":
@@ -213,16 +213,16 @@ def PostLike(request,id):
             messages.success(request, 'You Successfully Liked The Post!')
             return redirect('index')
 
-@login_required(login_url='Login')
+@login_required(login_url='login')
 def FollowUser(request, username):
     userTobefollowed = User.objects.get(username = username)
     currentUser = request.user
     is_followed = False
     if userTobefollowed.id == currentUser.id:
-        messages.error(request, "⚠️ You can't follow yourself!")
+        messages.error(request, "You can't follow yourself!")
         return redirect('UserProfile', username=username)
     if not userTobefollowed:
-        messages.error(request, "⚠️ User Does Not Exist!")
+        messages.error(request, "User Does Not Exist!")
         return redirect('UserProfile', username=username)
     else:
         follow = Follow.objects.filter(user = currentUser, following = userTobefollowed)
@@ -235,7 +235,7 @@ def FollowUser(request, username):
             messages.success(request, "You Are Now Following This User!")
             return redirect('UserProfile', username=username)
 
-@login_required(login_url='Login')
+@login_required(login_url='login')
 def Settings(request, username):
     username = User.objects.get(username=username)
     if request.method == "POST":
