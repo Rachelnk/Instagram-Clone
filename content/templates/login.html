@@ -1,0 +1,44 @@
+{%extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+      {% endif %}
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h3 class="text-center">Sign In</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="login-form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h1 class="flex justify-content-center text-center">
+                    <!-- <img src="" alt="Instagram logo" title="Instagram logo" /> -->
+                </h1>
+                <div class="panel register flex justify-content-center">
+                    <div class="hint-text text-center" style="font-size: small;">Don't Have An Account? <a href="{% url 'register' %}" name = 'Register'>Sign Up</a></div>
+                </div>
+                <input type="text" name="username" placeholder="Username" required/>
+                <input type="password" name="password" placeholder="Password" required/>
+                <button type="submit" class="btn btn-blue btn-block btn-sm">Log In</button>
+            </form>
+        </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- empty div -->
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+{% endblock %}
