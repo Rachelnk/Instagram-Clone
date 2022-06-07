@@ -17,7 +17,7 @@ urlpatterns = [
     path('logout', views.Logout, name="logout"),
     path('follow/user/<str:username>', views.FollowUser, name="FollowUser"),
     path('post/<int:id>/comment', views.AddComment, name="AddComment"),
-    path('search-results', views.Search, name="search")
+    path('search-results', views.Search, name="search_results")
 
 ]
 
