@@ -146,4 +146,25 @@ def AddNewPost(request, username):
             return redirect('AddNewPost', username=username)
     else:
         form = AddPostForm()
-    return render(request, 'Add Post.html', {'form':form})
+    return render(request, 'Add post.html', {'form':form})
+
+def Search(request):
+    current_user = request.user
+    if request.method == 'POST':
+        search = request.POST['imageSearch']
+        users = User.objects.filter(username__icontains = search).all()
+        if not users:
+            return render(request, 'Search Results.html', {'search':search, 'users':users})
+        else:
+            images = Post.objects.filter(author = users[0]).all()
+            images_count = Post.objects.filter(author = users[0])
+            follower_count = Follow.objects.filter(following = users[0])
+            following_count = Follow.objects.filter(user = users[0])
+            is_followed = False
+            if follower_count.filter(user_id=current_user.id).exists() or following_count.filter(user_id=current_user.id).exists():
+                is_followed=True
+            else:
+                is_followed=False
+            return render(request, 'Search search_results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count, 'current_user':current_user, 'is_followed':is_followed})
+    else:
+        return render(request, 'Search search_results.html')
