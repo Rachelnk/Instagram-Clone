@@ -128,3 +128,22 @@ def SingleImage(request, id):
     comments = Comment.objects.filter(post = post.id).count()
     print(comments)
     return render(request, 'Post details.html', {'post': post, 'comments':comments, 'likes':likes})
+
+@login_required(login_url='Login')
+def AddNewPost(request, username):
+    form = AddPostForm()
+    if request.method == "POST":
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.profile = request.user.profile
+            post.save()
+            messages.success(request, '✅ Your Post Was Created Successfully!')
+            return redirect('MyProfile', username=username)
+        else:
+            messages.error(request, "⚠️ Your Post Wasn't Created!")
+            return redirect('AddNewPost', username=username)
+    else:
+        form = AddPostForm()
+    return render(request, 'Add Post.html', {'form':form})
