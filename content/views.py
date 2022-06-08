@@ -227,12 +227,12 @@ def FollowUser(request, username):
         messages.error(request, "User Does Not Exist!")
         return redirect('user_profile', username=username)
     else:
-        follow = Follow.objects.filter(user = currentUser, following = userTobefollowed)
+        follow = Follow.objects.filter(user_followers = currentUser, following = userTobefollowed)
         if follow:
             messages.error(request, 'You Can Only Follow A User Once!')
             return redirect('user_profile', username=username)
         else:
-            folowerToadd = Follow(user = currentUser, following = userTobefollowed)
+            folowerToadd = Follow(user_followers = currentUser, following = userTobefollowed)
             folowerToadd.save()
             messages.success(request, "You Are Now Following This User!")
             return redirect('user_profile', username=username)

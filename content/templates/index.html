@@ -150,7 +150,7 @@
                                         </span>
                                     </div>
                 
-                                    <span class="post__date-time">{{ post.date_created }}</span>
+                                    <span class="post__date-time">{{ post.created }}</span>
                                     <form method="POST" action="{% url 'AddComment' post.id %}">
                                       {% csrf_token %}
                                       <div class="d-flex flex-row add-comment-section mt-4 mb-4">
@@ -307,7 +307,7 @@
                                 </span>
                             </div>
                             <br>
-                            <span class="post__date-time"><i class="fas fa-calendar-alt"></i> {{ post.date_created }}</span>
+                            <span class="post__date-time"><i class="fas fa-calendar-alt"></i> {{ post.created }}</span>
                         </div>
                     </div>
                 </div>
