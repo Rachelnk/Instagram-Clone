@@ -64,7 +64,7 @@ class Post(models.Model):
     comments = Comment.objects.filter(post=self)
     return comments
 
-  def delete_iamge(self):
+  def delete_image(self):
     self.delete()
 
   def __str__(self):
