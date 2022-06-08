@@ -103,7 +103,7 @@ def EditProfile(request, username):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your Profile Has Been Updated Successfully!')
-            return redirect('MyProfile', username=username)
+            return redirect('my_profile', username=username)
         else:
             messages.error(request, "Your profile Wasn't Updated!")
             return redirect('EditProfile', username=username)
@@ -155,7 +155,7 @@ def add_post(request, username):
             post.profile = request.user.profile
             post.save()
             messages.success(request, 'Your Post Was Created Successfully!')
-            return redirect('MyProfile', username=username)
+            return redirect('my_profile', username=username)
         else:
             messages.error(request, "Your Post Wasn't Created!")
             return redirect('add_post', username=username)
@@ -244,7 +244,7 @@ def Settings(request, username):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, 'Your Password Has Been Updated Successfully!')
-            return redirect("MyProfile", username=username)
+            return redirect("my_profile", username=username)
         else:
             messages.error(request, "Your Password Wasn't Updated!")
             return redirect("Settings", username=username)

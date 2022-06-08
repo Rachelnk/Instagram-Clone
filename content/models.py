@@ -95,7 +95,7 @@ class Like(models.Model):
   post = models.ForeignKey(Post,on_delete=models.CASCADE)
 
 class Follow(models.Model):
-  user_followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name= 'Following')
+  user_followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name= 'following')
   following = models.ForeignKey(User, related_name='followers', on_delete=models.CASCADE)
 
   def __str__(self):
