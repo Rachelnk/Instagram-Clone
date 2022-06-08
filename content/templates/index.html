@@ -289,11 +289,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="d-flex flex-row user-info">
-                                <a href="{% url 'UserProfile' user.username %}">
+                                <a href="{% url 'user_profile' user.username %}">
                                     <img class="rounded-circle" src="{{ post.profile.profile_image.url }}" height="50" width="50">
                                 </a>
                                 <div class="d-flex flex-column justify-content-start ml-2">
-                                    <a href="{% url 'UserProfile' user.username %}">
+                                    <a href="{% url 'user_profile' user.username %}">
                                         <span class="d-block font-weight-bold name">{{ post.author.username }}</span>
                                     </a>
                                     <span class="date text-black-50" style="font-size: 13px;">{{ post.author.first_name }} {{ post.author.last_name }}</span>
@@ -302,7 +302,7 @@
                             <br>
                             <div class="post__description">
                                 <span>
-                                    <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ post.author.username }}</b></a>
+                                    <a class="post__name--underline" href="{% url 'user_profile' user.username %}" ><b>{{ post.author.username }}</b></a>
                                     {{ post.caption }}
                                 </span>
                             </div>
@@ -334,11 +334,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="d-flex flex-row user-info">
-                                <a href="{% url 'UserProfile' user.username %}">
+                                <a href="{% url 'user_profile' user.username %}">
                                     <img class="rounded-circle" src="{{ post.profile.profile_image.url }}" height="50" width="50">
                                 </a>
                                 <div class="d-flex flex-column justify-content-start ml-2">
-                                    <a href="{% url 'UserProfile' user.username %}">
+                                    <a href="{% url 'user_profile' user.username %}">
                                         <span class="d-block font-weight-bold name">{{ post.author.username }}</span>
                                     </a>
                                     <span class="date text-black-50" style="font-size: 13px;">{{ post.author.first_name }} {{ post.author.last_name }}</span>
@@ -349,7 +349,7 @@
                               {% for comment in post.get_comments %}
                               <div class="post__description">
                                 <span>
-                                  <a class="post__name--underline" href="{% url 'UserProfile' user.username %}" ><b>{{ comment.author.username }}</b></a>
+                                  <a class="post__name--underline" href="{% url 'user_profile' user.username %}" ><b>{{ comment.author.username }}</b></a>
                                   {{ comment.opinion }}
                                   </span>
                               </div>

@@ -113,7 +113,7 @@ def EditProfile(request, username):
 
     return render(request, 'edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
-def UserProfile(request, username):
+def user_profile(request, username):
     current_user = request.user
     profile = User.objects.get(username=username)
     profile_details = Profile.objects.get(user = profile.id)
@@ -220,20 +220,20 @@ def FollowUser(request, username):
     is_followed = False
     if userTobefollowed.id == currentUser.id:
         messages.error(request, "You can't follow yourself!")
-        return redirect('UserProfile', username=username)
+        return redirect('user_profile', username=username)
     if not userTobefollowed:
         messages.error(request, "User Does Not Exist!")
-        return redirect('UserProfile', username=username)
+        return redirect('user_profile', username=username)
     else:
         follow = Follow.objects.filter(user = currentUser, following = userTobefollowed)
         if follow:
             messages.error(request, 'You Can Only Follow A User Once!')
-            return redirect('UserProfile', username=username)
+            return redirect('user_profile', username=username)
         else:
             folowerToadd = Follow(user = currentUser, following = userTobefollowed)
             folowerToadd.save()
             messages.success(request, "You Are Now Following This User!")
-            return redirect('UserProfile', username=username)
+            return redirect('user_profile', username=username)
 
 @login_required(login_url='login')
 def Settings(request, username):
