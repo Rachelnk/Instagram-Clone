@@ -112,7 +112,7 @@ def EditProfile(request, username):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
-
+@login_required(login_url='login')
 def user_profile(request, username):
     current_user = request.user
     profile = User.objects.get(username=username)
@@ -174,15 +174,15 @@ def Search(request):
             images = Post.objects.filter(author = users[0]).all()
             images_count = Post.objects.filter(author = users[0])
             follower_count = Follow.objects.filter(following = users[0])
-            following_count = Follow.objects.filter(user = users[0])
+            following_count = Follow.objects.filter(user_followers = users[0])
             is_followed = False
-            if follower_count.filter(user_id=current_user.id).exists() or following_count.filter(user_id=current_user.id).exists():
+            if follower_count.filter(id=current_user.id).exists() or following_count.filter(id=current_user.id).exists():
                 is_followed=True
             else:
                 is_followed=False
-            return render(request, 'Search search_results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count, 'current_user':current_user, 'is_followed':is_followed})
+            return render(request, 'search_results.html', {'search':search, 'users':users, 'images':images, 'images_count':images_count, 'follower_count':follower_count, 'following_count':following_count, 'current_user':current_user, 'is_followed':is_followed})
     else:
-        return render(request, 'Search search_results.html')
+        return render(request, 'search_results.html')
 @login_required(login_url='login')
 def AddComment(request, id):
     post = Post.objects.get(id=id)

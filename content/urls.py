@@ -17,7 +17,7 @@ urlpatterns = [
   path('logout/', views.Logoutuser, name="logout"),
   re_path(r'^follow/user/(?P<username>\w{0,50})/$', views.FollowUser, name="FollowUser"),
   re_path(r'^post/<id>(\d+)/comment/$', views.AddComment, name="AddComment"),
-  re_path(r'^search-results', views.Search, name="search_results")
+  re_path(r'^search-results/$', views.Search, name="search_results")
 
 ]
 
