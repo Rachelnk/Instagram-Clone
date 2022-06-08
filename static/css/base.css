@@ -422,7 +422,9 @@ a:hover{
 .notification{
   margin-top: 90px;
 }
-
+#center-tag {
+  text-align:center;
+}
 .flex {
     display: -webkit-box;
     display: -moz-box;
