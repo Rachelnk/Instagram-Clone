@@ -14,3 +14,8 @@ class TestFollowers(TestCase):
 
     def test_instance(self):
         self.assertTrue(isinstance(user, Follow))
+
+class TestComment(TestCase):
+    def setUp(self):
+        self.new_comment=Comment(comment='comment', author=user, post=self.new_post)
+        self.new_comment.save()
