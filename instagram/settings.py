@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -142,9 +142,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary configurations
 cloudinary.config( 
-  cloud_name = "kiaries-gallery", 
-  api_key = "343145548373335", 
-  api_secret = "oNEicoCy_M9UqMwBjoRC1fyPAuE",
+  cloud_name = os.environ.get('CLOUD_NAME'),
+  api_key = os.environ.get('API_KEY'), 
+  api_secret = os.environ.get('API_SECRET'),
   secure = True
 )
 # media configurations
