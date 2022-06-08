@@ -42,3 +42,25 @@ class TestPost(TestCase):
         new_p.save_image()
         posts=Post.get_posts()
         self.assertTrue(len(posts)>0)
+
+    def update_image(self):
+        new_p=self.new_post
+        new_p.update_caption()
+        posts=Post.get_posts()
+        self.assertTrue(len(posts)==0)
+
+    def test_delete_image(self):
+        new_p=self.new_post
+        new_p.delete_image()
+        posts=Post.get_posts()
+        self.assertTrue(len(posts)==0)
+
+class TestUserProfile(TestCase):
+    def setUp(self):
+        self.new_user=User(first_name='John', last_name='Doe', username='user', email='user@gmail.com',password='user')
+        self.new_user.save()
+
+        self.profile=Profile(user=user, bio='this is me', profile_image='profile.jpg')
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.profile,Profile))
