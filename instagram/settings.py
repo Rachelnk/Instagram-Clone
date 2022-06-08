@@ -142,7 +142,11 @@ cloudinary.config(
   api_secret = "oNEicoCy_M9UqMwBjoRC1fyPAuE",
   secure = True
 )
+# media configurations
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Login & Logout URLs
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/index/'
 LOGOUT_REDIRECT_URL = '/login/'

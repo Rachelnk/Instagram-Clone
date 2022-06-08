@@ -130,10 +130,10 @@ def UserProfile(request, username):
   
 
 @login_required(login_url='login')
-def Logout(request):
+def Logoutuser(request):
     logout(request)
     messages.success(request, 'Successfully Logged Out!')
-    return redirect(reverse('Login'))
+    return redirect(reverse('login'))
 
 def SingleImage(request, id):
     post = Post.objects.get(id = id)
