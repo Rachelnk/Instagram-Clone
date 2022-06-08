@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from instagram import settings
 from .forms import UpdateUserForm, UpdateProfileForm, AddPostForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from .models import Follow, Like, Post, Profile, Comment
 from django.contrib.auth import update_session_auth_hash
@@ -122,7 +123,7 @@ def user_profile(request, username):
     followers = Profile.get_followers(self=profile)
     following = Profile.get_following(self=profile)
     is_followed = False
-    if followers.filter(user_id=current_user.id).exists() or following.filter(user_id=current_user.id).exists():
+    if followers.filter(id=current_user.id).exists() or following.filter(id=current_user.id).exists():
         is_followed=True
     else:
         is_followed=False
@@ -135,14 +136,15 @@ def Logoutuser(request):
     messages.success(request, 'Successfully Logged Out!')
     return redirect(reverse('login'))
 
-def SingleImage(request, id):
-    post = Post.objects.get(id = id)
-    print(post)
-    likes = Like.objects.filter(post = post.id).count()
-    print(likes)
-    comments = Comment.objects.filter(post = post.id).count()
-    print(comments)
-    return render(request, 'post_details.html', {'post': post, 'comments':comments, 'likes':likes})
+# def SingleImage(request, id):
+#     post = Post.objects.get(id = id)
+#     print(post)
+#     likes = Like.objects.filter(post = post.id).count()
+#     print(likes)
+#     comments = Comment.objects.filter(post = post.id).count()
+#     print(comments)
+    
+#     return render(request,'index.html', {'post': post, 'comments':comments, 'likes':likes})
 
 @login_required(login_url='login')
 def add_post(request, username):
@@ -188,12 +190,12 @@ def AddComment(request, id):
     post = Post.objects.get(id=id)
     if request.method == "POST":
         usercomment = request.POST['comment']
-        comment_obj = Comment.objects.create(opinion = usercomment, author = request.user, post = post)
+        comment_obj = Comment.objects.create(comment = usercomment, author = request.user, post = post)
         comment_obj.save()
-        messages.success(request, '✅ Your Comment Was Created Successfully!')
+        messages.success(request, 'Your Comment Was Created Successfully!')
         return redirect('index')
     else:
-        messages.error(request, "⚠️ Your Comment Wasn't Created!")
+        messages.error(request, "Your Comment Wasn't Created!")
         return redirect('index')
 
 @login_required(login_url='login')

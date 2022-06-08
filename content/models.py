@@ -45,7 +45,7 @@ class Post(models.Model):
   name = models.CharField(max_length=60)
   caption = models.TextField()
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-  author= models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
+  author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
   created = models.DateTimeField(auto_now_add=True, null=True)
   updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
