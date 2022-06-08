@@ -142,9 +142,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary configurations
 cloudinary.config( 
-  cloud_name = config('CLOUD_NAME'),
-  api_key = config('API_KEY'), 
-  api_secret = config('API_SECRET'),
+  cloud_name = "kiaries-gallery",
+  api_key = "343145548373335", 
+  api_secret = "oNEicoCy_M9UqMwBjoRC1fyPAuE",
   secure = True
 )
 # media configurations
