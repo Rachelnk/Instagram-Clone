@@ -5,8 +5,8 @@ from .models import Post, Profile
 admin.site.register(Post)
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'email_confirmed', 'date_created', 'date_updated')
+    list_display = ('user','created')
     search_fields = []
-    readonly_fields=('date_created', 'date_updated')
+    readonly_fields=('created', 'updated')
 
 admin.site.register(Profile, ProfileAdmin)

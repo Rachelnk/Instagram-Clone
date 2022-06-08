@@ -10,6 +10,7 @@ class Profile(models.Model):
     bio = models.TextField()
     username = models.CharField(max_length=60)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created, ', null=True)
+    updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
     def save_profile(self):
         self.user
@@ -46,6 +47,7 @@ class Post(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
   author= models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author')
   created = models.DateTimeField(auto_now_add=True, null=True)
+  updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 
   def get_posts(self):
     posts = Post.objects.filter(user=self).all()
