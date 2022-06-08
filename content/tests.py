@@ -9,7 +9,7 @@ class TestFollowers(TestCase):
     def setUp(self):
         self.new_user=User(first_name='Ray', last_name='Ray', username='Ray', email='ray@gmail.com',password='123')
         self.new_user.save()
-        user=Follow(user='user',following=1)
+        user=Follow(user_followers='user',following=1)
         user.save()
 
     def test_instance(self):
@@ -64,3 +64,10 @@ class TestUserProfile(TestCase):
 
     def test_instance(self):
         self.assertTrue(isinstance(self.profile,Profile))
+
+    def tearDown(self):
+        Comment.objects.all().delete
+        Post.objects.all().delete
+        Follow.objects.all().delete
+        Like.objects.all().delete
+        Profile.objects.all().delete
